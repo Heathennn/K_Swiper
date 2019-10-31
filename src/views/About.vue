@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <button @click="check">查看源代码</button>
     <button @click="goTo(-1)">上一个</button>
     <button @click="goTo(1)">下一个</button>
     <Swiper :length="5" ref="whdxSwiper">
@@ -30,6 +31,9 @@
     methods: {
       goTo(offset) {
         this.whdxSwiper.go(this.whdxSwiper.current_index + offset);
+      },
+      check() {
+        window.open('https://github.com/Heathennn/K_Swiper')
       }
     },
     mounted() {
