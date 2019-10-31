@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/K_Swiper'
+    publicPath: './'
 }
