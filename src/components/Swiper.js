@@ -73,11 +73,28 @@ class Swiper {
     }
     _setOffset() {
         this._offset = [];
-        this.$items.forEach( (item, index) => {
-            let offsetIndex = index - this.current_index;
-            let distance = offsetIndex * this._item_width + this._item_interval * (index + 1);
-            this._offset.push(distance)
-        })
+        if ( this.current_index === 0) {
+            this.$items.forEach( (item, index) => {
+                let current_one;
+                if (index === 0) {
+                    current_one = +(this._item_interval * 2);
+                } else {
+                    current_one = +(this._offset[index-1] + this._item_interval + +this._item_width);
+                }
+                this._offset.push(current_one);
+            })
+        } else {
+            this.$items.forEach( (item, index) => {
+                let current_one;
+                let offsetIndex = index - this.current_index;
+                if (index === 0) {
+                    current_one = (offsetIndex * +this._item_width) + ((offsetIndex + 1) * this._item_interval) + this._item_interval;
+                } else {
+                    current_one = +this._offset[index-1] + this._item_interval + +this._item_width;
+                }
+                this._offset.push(current_one);
+            })
+        }
     }
     _setActive(index) {
         let className = this._options.activeClass;
@@ -97,7 +114,7 @@ class Swiper {
         })
     }
     _setTransform (moveX) {
-        const me = this
+        const me = this;
         moveX = moveX || 0;
         this.$items.forEach(function ($item, key) {
             let distance = me._offset[key] + moveX;
@@ -108,6 +125,7 @@ class Swiper {
         })
     }
     go(index) {
+        this._setTransition();
         index = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index;
         this.current_index = index;
         this._setOffset();

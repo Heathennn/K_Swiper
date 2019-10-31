@@ -2,10 +2,12 @@
   <div class="about">
     <button @click="goTo(-1)">上一个</button>
     <button @click="goTo(1)">下一个</button>
-    <Swiper :length="3" ref="whdxSwiper">
+    <Swiper :length="5" ref="whdxSwiper">
       <swiper-item>slot1</swiper-item>
       <swiper-item>slot2</swiper-item>
       <swiper-item>slot3</swiper-item>
+      <swiper-item>slot4</swiper-item>
+      <swiper-item>slot5</swiper-item>
     </Swiper>
   </div>
 </template>
