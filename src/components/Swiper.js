@@ -20,7 +20,6 @@ class Swiper {
         }
 
         this._options = Object.assign({}, this.defaultOptions, options);
-        console.log(`this._options.height ==>`, this._options.height);
         this._options.height = this._options.height.replace('px', '');
         this._options.width = this._options.width.replace('px', '');
         this._options.item_width = this._options.item_width.replace('px', '');
