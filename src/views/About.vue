@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <h3>在Responsive / ipad / ipad pro 模式下使用</h3>
     <button @click="check">查看源代码</button>
     <button @click="goTo(-1)">上一个</button>
     <button @click="goTo(1)">下一个</button>
