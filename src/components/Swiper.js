@@ -1,5 +1,5 @@
 class Swiper {
-    constructor (options) {
+    constructor(options) {
         this.defaultOptions = {
             container: '.whdx-swiper',
             item: '.whdx-swiper-item',
@@ -52,10 +52,11 @@ class Swiper {
         this._setOffset();
         this._setTransform();
     }
+
     _initWidth() {
         this._width = this.$box.offsetWidth || document.documentElement.offsetWidth;
         // 设定的宽度不能宽于container的宽度
-        if ( this._options.item_width > this._width) {
+        if (this._options.item_width > this._width) {
             this._item_width = this._width;
             this._item_interval = 0;
         } else {
@@ -66,36 +67,31 @@ class Swiper {
             item.style.width = `${this._item_width}px`
         })
     }
+
     _initPosition() {
-        for(let i = 0;i < this.itemCount;i++) {
+        for (let i = 0; i < this.itemCount; i++) {
             this._positions.push(i);
         }
     }
+
     _setOffset() {
         this._offset = [];
-        if ( this.current_index === 0) {
-            this.$items.forEach( (item, index) => {
-                let current_one;
-                if (index === 0) {
+        this.$items.forEach((item, index) => {
+            let current_one;
+            let offsetIndex = index - this.current_index;
+            if (index === 0) {
+                if (this.current_index === 0) {
                     current_one = +(this._item_interval * 2);
                 } else {
-                    current_one = +(this._offset[index-1] + this._item_interval + +this._item_width);
-                }
-                this._offset.push(current_one);
-            })
-        } else {
-            this.$items.forEach( (item, index) => {
-                let current_one;
-                let offsetIndex = index - this.current_index;
-                if (index === 0) {
                     current_one = (offsetIndex * +this._item_width) + ((offsetIndex + 1) * this._item_interval) + this._item_interval;
-                } else {
-                    current_one = +this._offset[index-1] + this._item_interval + +this._item_width;
                 }
-                this._offset.push(current_one);
-            })
-        }
+            } else {
+                current_one = +(this._offset[index - 1] + this._item_interval + +this._item_width);
+            }
+            this._offset.push(current_one);
+        })
     }
+
     _setActive(index) {
         let className = this._options.activeClass;
         this.$items.forEach((item, itemIndex) => {
@@ -105,6 +101,7 @@ class Swiper {
             }
         })
     }
+
     _setTransition(duration) {
         duration = duration || (this._options.duration || 'none');
         let transition = duration === 'none' ? 'none' : duration + 'ms';
@@ -113,7 +110,8 @@ class Swiper {
             $item.style.transition = transition;
         })
     }
-    _setTransform (moveX) {
+
+    _setTransform(moveX) {
         const me = this;
         moveX = moveX || 0;
         this.$items.forEach(function ($item, key) {
@@ -124,6 +122,7 @@ class Swiper {
             // me._isMoved = true
         })
     }
+
     go(index) {
         this._setTransition();
         index = index < 0 ? 0 : index > this.itemCount - 1 ? this.itemCount - 1 : index;
@@ -142,7 +141,7 @@ class Swiper {
         };
 
         this.touchmoveHandler = e => {
-            if ( this.itemCount <= 1) return;
+            if (this.itemCount <= 1) return;
             _this._move.x = e.changedTouches[0].pageX;
             let moveX = _this._move.x - _this._start.x;
             _this._setTransform(moveX);
@@ -150,7 +149,7 @@ class Swiper {
         };
 
         this.touchendHandler = e => {
-            if ( _this.itemCount <= 1) return;
+            if (_this.itemCount <= 1) return;
             this._setTransition();
             _this._end.x = e.changedTouches[0].pageX;
             let moveX = _this._end.x - _this._start.x;
@@ -168,7 +167,7 @@ class Swiper {
         this.$container.addEventListener('touchend', _this.touchendHandler, false);
     }
 
-    _onResize () {
+    _onResize() {
         const _this = this;
         this.resizeHandler = () => {
             setTimeout(() => {
